@@ -1,3 +1,4 @@
+
 module.exports = { 
 	name: "help",
 	description: "List the purpose of each command provided by this bot",
