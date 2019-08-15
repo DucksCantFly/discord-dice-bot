@@ -8,7 +8,7 @@ const rand = require("../js/random.js");
 		max difficulty is 10, min is 0 TODO?
 		Each 1 subtracts from success
 		Minimum number of successes = 0
-		TODO - Account for botches?
+		Botch occurs if no successes happens and at least one 1 was rolled
 		
 */
 
@@ -17,28 +17,31 @@ module.exports = {
 	name: "wod",
 	description: "Useful for working with the oWoD system. First argument is the size of your dice pool, second argument is difficulty of check. Default difficulty is 6.",
 	execute(message,args){
-			const d10 = [1,10];
-			
 			//initiate rolls
 			var pool = Number(args[0]);
 			var diff = 6; // default difficulty is 6
 			var successes = 0;
-			var rolledVal;
-			if (args.length > 1) diff = Number(args[1]);
-			
+			var fails = 0;
+			var rollsArr = [];
+			if (args.length > 1) diff = Number(args[1]); //check if dice difficulty was provided
+			var botch = false;
 			//calculate number of successes
 			for(var i = 0; i < pool; i++){
-				rolledVal = rand.rollRange(d10[0],d10[1]);
-				if (rolledVal >= diff){
+				rollsArr.push(rand.rollRange(1,10)); //rolls 1d10
+				if (rollsArr[i] >= diff){
 					successes++;
-				}
-				else if (rolledVal == 1){
-					successes--;
+				}else if (rollsArr[i] == 1){
+					fails++;
 				}
 			}
+			if( successes == 0 && fails > 0) botch = true;
+			successes -= fails;
 			if(successes < 0) successes = 0;
 			
-			message.channel.send(`${successes} successes!`);
-	},
+			//construct and print output
+			var output = `Successes: ${successes}\nValues Rolled: ${rollsArr}`
+			if (botch) output += `\n:exclamation: BOTCH :exclamation: `;
+			message.channel.send(output);
+	}
 };
 
