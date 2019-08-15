@@ -1,16 +1,16 @@
-const rand = require("../js/random.js");
 /*
 	oWoD Dice rolls:
 		All dice rolled are d10
 		Number of successes counted
 		successes defined as 1d10 >= difficulty value
 		default difficulty is 6
-		max difficulty is 10, min is 0 TODO?
+		max difficulty is 10, min is 2
 		Each 1 subtracts from success
 		Minimum number of successes = 0
 		Botch occurs if no successes happens and at least one 1 was rolled
 		
 */
+const rand = require("../js/random.js");
 
 
 module.exports = { 
