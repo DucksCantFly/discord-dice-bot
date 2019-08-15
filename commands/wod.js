@@ -38,7 +38,7 @@ module.exports = {
 			successes -= fails;
 			if(successes < 0) successes = 0;
 			
-			//construct and print output
+			//construct output
 			var output = `Successes: ${successes}\nValues Rolled: ${rollsArr}`
 			if (botch) output += `\n:exclamation: BOTCH :exclamation: `;
 			message.channel.send(output);
