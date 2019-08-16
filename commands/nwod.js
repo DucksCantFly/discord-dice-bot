@@ -1,5 +1,6 @@
 const rand = require("../js/random.js");
 
+
 module.exports = { 
 	name: "nwod",
 	description: "TODO",

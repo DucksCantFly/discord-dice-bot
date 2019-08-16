@@ -9,14 +9,11 @@ module.exports = {
 
 			//generate values
 			for(var i = 0; i < 6; i++){
-				var tempArray = [];
-				var statSum = 0;
-				for(var j = 0; j < 4; j++){
-					tempArray.push(rand.rollRange(1,6));
-				}
+				var tempArray = rand.rollRepeat(4,1,6);
 				// remove smallest value from tempArray
 				tempArray.sort(function(x,y){return y - x});
 				tempArray.pop();
+				var statSum = 0;
 				for(var j = 0; j < 3; j++){
 					statSum += tempArray[j];
 				}
@@ -27,9 +24,9 @@ module.exports = {
 			
 			//construct output
 			var output = "Stats: ";
-			for(var i = 0; i < statArray.length; i++){
+			for(var i = 0; i < statArray.length; i++)
 				output += statArray[i] + " ";
-			}
+			
 			
 			
 			message.channel.send(output);

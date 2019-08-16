@@ -1,15 +1,18 @@
 // simple javascript random number generation library
 
-module.exports = { 
+function rollRange(lower,upper){
+	return Math.floor((Math.random() * upper + lower));
+}
 
-	rollRange: function(lower,upper) {return Math.floor((Math.random() * upper + lower))}
-
-	rollRepeat: function(repeat,lower,upper){
-		var rollList = [];
-		for(int i=0; i < repeat; i++){
-			rollList.append(rollRange(lower,upper));	
-		}
-		return rollList;
+function rollRepeat(repeat,lower,upper){
+	var rollList = [];
+	for(var i=0; i < repeat; i++){
+		rollList.push(rollRange(lower,upper));	
 	}
-	
-	};
+	return rollList;
+}
+
+module.exports = { 
+	rollRange : rollRange,
+	rollRepeat : rollRepeat
+};
