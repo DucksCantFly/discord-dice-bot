@@ -17,8 +17,25 @@ module.exports = {
 	name: "r",
 	description: "command to suit your general dice rolling needs",
 	execute(message,args){
+		//return message if no roll made
+		if (!args){
+			message.channel.send("No arguments provided");
+			return;
+		}
 		
-		var output = "Coming Soon!";
+		
+		var userInput = "";
+		for(var i = 0; i < args.length; i++){
+			userInput += args[i];
+		}
+		
+		//quick fudge //TODO EXPAND FUNCTIONALITY
+		//find dice roll
+		//var diceRoll = /(\d+)d(\d+)/;
+		var val = parseInt(userInput.slice(0,1));
+		var val2 = parseInt(userInput.slice(2,4));
+		
+		var output = rand.rollRepeat(val,1,val2);
 		message.channel.send(output);
 	},
 };
