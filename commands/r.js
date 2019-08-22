@@ -1,4 +1,5 @@
 const rand = require("../js/random.js");
+const parser = require("../js/roll-parser.js");
 
 /*
 	Command for general dice rolling
@@ -8,6 +9,8 @@ const rand = require("../js/random.js");
 			return number of values at or above a certain value
 				Subtract the number at or below a certain value
 					Allow users to define whether value ought to be > or < ? for + or - ?
+					! exploding dice
+					!>n exploding dice at and above n
 			check to see if a given value has been rolled at all
 			Custom dice?
 */
@@ -25,6 +28,7 @@ module.exports = {
 		
 		
 		var userInput = "";
+		/*
 		for(var i = 0; i < args.length; i++){
 			userInput += args[i];
 		}
@@ -34,8 +38,12 @@ module.exports = {
 		//var diceRoll = /(\d+)d(\d+)/;
 		var val = parseInt(userInput.slice(0,1));
 		var val2 = parseInt(userInput.slice(2,4));
-		
-		var output = rand.rollRepeat(val,1,val2);
+		*/
+		var userInput = parser.tokenize(args[0]);
+		var output = "";
+		for(var i = 0; i < userInput.length;i++){
+			output += userInput[i].value + " ";
+		}
 		message.channel.send(output);
 	},
 };

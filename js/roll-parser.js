@@ -6,9 +6,10 @@
 */
 const rand = require("../js/random.js");
 
+function Token(type, value) {   this.type = type;   this.value = value}
 
 function is_digit(c){return /\d/.test(c);}
-function is_operator(c){return /\d|<|>|=|<=|>=/.test(c);
+function is_operator(c){return /d|<|>|=|<=|>=/.test(c)};
 
 //math operations
 // these functions do not get exported, and are intended only for use inside this module
@@ -28,33 +29,51 @@ function equal(a,b){return a == b;}
 
 //dice operations
 function roll(a,b){return rand.rollRepeat(a,b);}
+function arr_sum(arr){return arr.reduce(add,0);}
 function compare(arr,b,func){
 	//determine number of values in arr that meet func's criteria
-		var num = 0;
-		for(var i = 0; i < arr.length; i++){
-			if func(arr[i],b){num++;}
-		}
-		return num;
+	var num = 0;
+	for(var i = 0; i < arr.length; i++){
+		if (func(arr[i],b)){num++;}
+	}
+	return num;
 }
 //function explode(){}; TODO exploding dice
 
+function find_type(c){
+	if(is_digit(c)){return "digit";}
+	if(is_operator(c)){return "operator"};
+	return "unknown";
+}
 
 function tokenize(s){
-	
 	var arr = [];
-	str.replace(/\s+/, "");
-	str = str.split(" ");
-	//str.forEach(function (char, id){ if is_digit(char))
-}
-
-
-
-
-
-
-
-
-module.exports{
-
+	s.replace(/\s+/, "");
+	s = s.split("");
 	
+	var buffer = s[0];
+	var previous_type = find_type(s[0]);	
+	var pos = 1;
+	while(pos < s.length){
+		if(find_type(s[pos]) === previous_type){
+			buffer += s[pos];
+		}
+		else{
+			arr.push(new Token(previous_type,buffer));
+			buffer = s[pos];
+			previous_type = find_type(s[pos]);
+		}
+		
+		pos++;
+	}
+	arr.push(new Token(previous_type,buffer));
+	return arr;
 }
+
+//function compute_roll(){}; //TODO Shunting-Yard Algorithm?
+
+module.exports = {
+	
+	tokenize : tokenize
+	
+};
