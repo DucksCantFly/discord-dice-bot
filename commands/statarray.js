@@ -27,8 +27,6 @@ module.exports = {
 			for(var i = 0; i < statArray.length; i++)
 				output += statArray[i] + " ";
 			
-			
-			
 			message.channel.send(output);
 	},
 };
