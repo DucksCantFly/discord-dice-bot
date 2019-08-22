@@ -11,7 +11,7 @@
 
 
 function is_digit(c){return /\d/.test(c);}
-function is_operator(c){return /d|<|>|=|<=|>=/.test(c);
+function is_operator(c){return /\d|<|>|=|<=|>=/.test(c);
 
 
 function tokenize(s){
