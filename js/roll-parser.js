@@ -6,7 +6,7 @@
 */
 const rand = require("../js/random.js");
 
-function Token(type, value) {   this.type = type;   this.value = value}
+function Token(type,value){this.type = type; this.value = value}
 
 function is_digit(c){return /\d/.test(c);}
 function is_operator(c){return /d|<|>|=|<=|>=/.test(c)};
@@ -38,7 +38,19 @@ function compare(arr,b,func){
 	}
 	return num;
 }
-//function explode(){}; TODO exploding dice
+
+function explode(arr,explode_arr,lower,upper){
+		//method for handling exploding dice
+		var rolls = arr;
+		for(var i = 0; i < rolls.length;i++){
+			for(var j = 0; j < explode_arr.length; j++){
+				if (rolls[i] == explode_arr[i]){
+					rolls.push(rand.rollRange(lower,upper));
+				}
+			}
+		}
+		return rolls;
+}
 
 function find_type(c){
 	if(is_digit(c)){return "digit";}
@@ -63,7 +75,6 @@ function tokenize(s){
 			buffer = s[pos];
 			previous_type = find_type(s[pos]);
 		}
-		
 		pos++;
 	}
 	arr.push(new Token(previous_type,buffer));
