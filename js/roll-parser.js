@@ -9,7 +9,7 @@ const rand = require("../js/random.js");
 function Token(type,value){this.type = type; this.value = value}
 
 function is_digit(c){return /\d/.test(c);}
-function is_operator(c){return /d|<|>|=|<=|>=/.test(c)};
+function is_operator(c){return /d|<|>|=|<=|>=|f|!|k|kl/.test(c)};
 
 //math operations
 // these functions do not get exported, and are intended only for use inside this module
@@ -82,6 +82,7 @@ function tokenize(s){
 }
 
 //function compute_roll(){}; //TODO Shunting-Yard Algorithm?
+
 
 module.exports = {
 	
