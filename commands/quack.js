@@ -15,7 +15,7 @@ module.exports = {
 	execute(message,args){
 		var output = ":duck: ";
 		var quackNum = rand.rollRange(1,5);
-		var punctuation = [" ",".","!","?",";"]
+		var punctuation = [" ",".","!","?"]
 		
 		for(var i = 0; i < quackNum; i++){
 			
