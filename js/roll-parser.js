@@ -81,6 +81,24 @@ function tokenize(s){
 	return arr;
 }
 
+//TODO - clean this up
+function shunting_yard(tokenList){
+	
+	var output_queue = [];
+	var operator_stack = [];
+	
+	//place tokens in proper queues
+	for(var i = 0; i < tokenList.length; i++){
+		if(tokenList[i].type === "digit"){
+			output_queue.push(i);
+		}
+		else if(tokenList[i].type === "operator"){
+			
+		}
+	}
+	
+}
+
 //function compute_roll(){}; //TODO Shunting-Yard Algorithm?
 
 
