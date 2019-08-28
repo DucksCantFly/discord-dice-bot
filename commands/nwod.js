@@ -14,6 +14,11 @@ module.exports = {
 	name: "nwod",
 	description: "Useful for nWoD system. COMING SOON",
 	execute(message,args){
+		output="";
+		//chance die
+		if (args.length == 0){
+			var chance =  rand.rollRange(1,10);
+		}
 		
 		var output = "Coming Soon!";
 		message.channel.send(output);
