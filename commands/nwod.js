@@ -14,13 +14,21 @@ module.exports = {
 	name: "nwod",
 	description: "Useful for nWoD system. COMING SOON",
 	execute(message,args){
-		output="";
+		var pool = Number(args[0]);
+		var output="";
+		var successes = 0;
+		var fails = 0;
+		var rollsArr = [];
 		//chance die
 		if (args.length == 0){
-			var chance =  rand.rollRange(1,10);
+			var chance = rand.rollRange(1,10);
+			if(chance==1){output="DISASTROUS FAILURE";}
+		}else{
+			var rolls = rand.rollRepeat(pool,1,10);
+			output += String(rolls);
 		}
 		
-		var output = "Coming Soon!";
+	
 		message.channel.send(output);
 	},
 };
