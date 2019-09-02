@@ -19,30 +19,14 @@ module.exports = {
 		var n_again = 10;
 		var diff = 8; // default difficulty is 8
 		var successes = 0;
-		var fails = 0;
 		var rollsArr = [];
 		if (args.length > 1) n_again = Number(args[1]);
-	
-		for(var i = 0; i < pool; i++){
-			rollsArr.push(rand.rollRange(1,10)); //rolls 1d10
-			if (rollsArr[i] >= diff){
-				successes++;
-			}else if (rollsArr[i] == 1){
-				fails++;
-			}
-			while(rollsArr[i] >= n_again){
-				pool++;
-				i++;
-				rollsArr.push(rand.rollRange(1,10)); //rolls 1d10
-				if (rollsArr[i] >= diff){
-					successes++;
-				}else if (rollsArr[i] == 1){
-					fails++;
-				}
-			}
+		
+		while(rollsArr.length < pool){
+			rollsArr.push(rand.rollRange(1,10));
+			if (rollsArr[rollsArr.length-1] >= diff) successes++;
+			if (rollsArr.length > 0 && rollsArr[rollsArr.length - 1] >= n_again) pool++;
 		}
-		
-		
 		
 		var output = `Successes: ${successes}\nValues Rolled: ${rollsArr}`
 		message.channel.send(output);
