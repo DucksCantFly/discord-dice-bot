@@ -14,21 +14,37 @@ module.exports = {
 	name: "nwod",
 	description: "Useful for nWoD system. COMING SOON",
 	execute(message,args){
+		
 		var pool = Number(args[0]);
-		var output="";
+		var n_again = 10;
+		var diff = 8; // default difficulty is 8
 		var successes = 0;
 		var fails = 0;
 		var rollsArr = [];
-		//chance die
-		if (args.length == 0){
-			var chance = rand.rollRange(1,10);
-			if(chance==1){output="DISASTROUS FAILURE";}
-		}else{
-			var rolls = rand.rollRepeat(pool,1,10);
-			output += String(rolls);
+		if (args.length > 1) n_again = Number(args[1]);
+	
+		for(var i = 0; i < pool; i++){
+			rollsArr.push(rand.rollRange(1,10)); //rolls 1d10
+			if (rollsArr[i] >= diff){
+				successes++;
+			}else if (rollsArr[i] == 1){
+				fails++;
+			}
+			while(rollsArr[i] >= n_again){
+				pool++;
+				i++;
+				rollsArr.push(rand.rollRange(1,10)); //rolls 1d10
+				if (rollsArr[i] >= diff){
+					successes++;
+				}else if (rollsArr[i] == 1){
+					fails++;
+				}
+			}
 		}
 		
-	
+		
+		
+		var output = `Successes: ${successes}\nValues Rolled: ${rollsArr}`
 		message.channel.send(output);
 	},
 };
